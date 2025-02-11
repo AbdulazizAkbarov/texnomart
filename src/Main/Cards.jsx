@@ -5,12 +5,10 @@ import rasm1 from "../assets/yurak_border.svg";
 import rasm2 from "../assets/yurak_qizil.svg";
 import useSmthStore from "../Navbar/my-store";
 
-
 function Cards() {
   const [card, setCard] = useState([]);
   const [likedItems, setLikedItems] = useState({});
-  const {counter ,count}=useSmthStore()
-
+  const { counter, count } = useSmthStore();
 
   useEffect(() => {
     axios
@@ -27,6 +25,27 @@ function Cards() {
       ...prevLiked,
       [id]: !prevLiked[id],
     }));
+  };
+
+  const handleAddToCart = (item) => {
+    const topish = counter.find((prod) => prod.id === item.id);
+
+    if (topish) {
+      const updatedCounter = counter.map((prod) =>
+        prod.id === item.id ? { ...prod, soni: prod.soni + 1 } : prod
+      );
+      useSmthStore.setState({
+        counter: updatedCounter,
+      });
+    } else {
+      const newProduct = {
+        ...item,
+        soni: 1,
+      };
+      useSmthStore.setState({
+        counter: [...counter, newProduct],
+      });
+    }
   };
 
   return (
@@ -54,21 +73,19 @@ function Cards() {
                 className="w-[20px] absolute top-0 right-1 cursor-pointer"
                 src={likedItems[item.id] ? rasm2 : rasm1}
                 alt="heart"
-                onClick={() =>{ toggleLike(item.id)
-                
-                  
+                onClick={() => {
+                  toggleLike(item.id);
+
                   const nom = count.concat({
-                    id:item.id,
-                    name:item.name,
-                    image:item.image,
-                    sale_price:item.sale_price,
-                    axiom_monthly_price:item.axiom_monthly_price
-,
-                  })
+                    id: item.id,
+                    name: item.name,
+                    image: item.image,
+                    sale_price: item.sale_price,
+                    axiom_monthly_price: item.axiom_monthly_price,
+                  });
                   useSmthStore.setState({
-                    count:nom
-                  })
-                
+                    count: nom,
+                  });
                 }}
               />
 
@@ -84,18 +101,19 @@ function Cards() {
                 <div
                   className="border-2 border-[#FBC100] p-1 rounded cursor-pointer"
                   onClick={() => {
+                    handleAddToCart(item);
 
-                    const nom = counter.concat({
-                      id:item.id,
-                      name:item.name,
-                      image:item.image,
-                      sale_price:item.sale_price,
-                      axiom_monthly_price:item.axiom_monthly_price
-,
-                    })
+                    // const nom = counter.concat({
+                    //   id: item.id,
+                    //   name: item.name,
+                    //   image: item.image,
+                    //   sale_price: item.sale_price,
+                    //   axiom_monthly_price: item.axiom_monthly_price,
+                    //   soni: item.soni,
+                    // });
                     useSmthStore.setState({
-                      counter:nom
-                    })
+                      counter: nom,
+                    });
                   }}
                 >
                   <ShoppingCart02Icon />

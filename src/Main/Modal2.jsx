@@ -6,6 +6,12 @@ import useSmthStore from "../Navbar/my-store";
 
 function Modal({ modal2, setModal2 }) {
   const { count } = useSmthStore();
+  const handleDel = (id) => {
+    const del = count.filter((item) => item.id !== id);
+    useSmthStore.setState({
+      count: del,
+    });
+  };
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 bg-[#d7d7d7] z-10">
       <div className="w-[1300px] h-[440px] bg-white mx-auto mt-28 rounded-2xl ">
@@ -33,28 +39,32 @@ function Modal({ modal2, setModal2 }) {
             <div className="bg-[lightgrey] h-[1px] w-full mt-5"></div>
 
             <div className="scrol ">
-            {count.map((item, index) => {
-                  console.log(item);
+              {count.map((item, index) => {
+                return (
+                  <div className="flex items-center justify-between mt-6 ">
+                    <input type="checkbox" />
 
-              return (
-                <div className="flex items-center justify-between mt-6 ">
-                  <input type="checkbox" />
+                    <img className="w-[80px]" src={item.image} alt="" />
 
-                  <img className="w-[80px]" src={item.image} alt="" />
+                    <h2>{item.name}</h2>
 
-                  <h2>{item.name}</h2>
+                    <div> - 1 +</div>
+                    <div>{item.salary_price}</div>
 
-                  <div> - 1 +</div>
-                  <div>{item.salary_price}</div>
+                    <div className="flex flex-col gap-2">
+                      <FavouriteIcon />
 
-                  <div className="flex flex-col gap-2">
-                    <FavouriteIcon />
-
-                    <Delete03Icon />
+                      <div
+                        onClick={() => {
+                          handleDel(item.id);
+                        }}
+                      >
+                        <Delete03Icon />
+                      </div>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
             </div>
           </div>
 
