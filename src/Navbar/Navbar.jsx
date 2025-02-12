@@ -5,10 +5,13 @@ import FavouriteIcon from "./icons/favourite-stroke-rounded";
 import ShoppingCart02Icon from "./icons/shopping-cart-02-stroke-rounded";
 import Modal from "../Main/Modal";
 import Modal2 from "../Main/Modal2";
+import { Link } from "react-router";
+
 
 import { useState } from "react";
 import Cancel01Icon from "../Main/cancel-01-stroke-rounded";
 import useSmthStore from "./my-store";
+
 
 
 function Navbar() {
@@ -20,10 +23,12 @@ function Navbar() {
 
   return (
     <div className="flex justify-between container px-8 mx-auto items-center mt-4">
-          <img
+   <Link to={"/"}>
+   <img
         src={"https://texnomart.uz/_nuxt/img/texnomart-logo.3b2791c.svg"}
         alt=""
       />
+   </Link>
       
 
       <div className="flex items-center justify-between gap-2">

@@ -4,11 +4,15 @@ import axios from "axios";
 import rasm1 from "../assets/yurak_border.svg";
 import rasm2 from "../assets/yurak_qizil.svg";
 import useSmthStore from "../Navbar/my-store";
+import { Link } from "react-router";
+
+
 
 function Cards() {
   const [card, setCard] = useState([]);
   const [likedItems, setLikedItems] = useState({});
   const { counter, count } = useSmthStore();
+  
 
   useEffect(() => {
     axios
@@ -63,11 +67,13 @@ function Cards() {
               key={item.id}
               className="w-[220px] mt-6 relative hover:shadow-2xl p-3 rounded-xl"
             >
-              <img
+            <Link to={`/about/ ${item.id}`}>
+            <img
                 className="w-[200px] h-[190px] bg-[#F7F7F7] mb-4"
                 src={item.image}
                 alt=""
               />
+            </Link>
 
               <img
                 className="w-[20px] absolute top-0 right-1 cursor-pointer"
