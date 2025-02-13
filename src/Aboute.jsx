@@ -1,17 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import Cardlar from "./Main/Cardlar/Cardlar"
 
 function Aboute() {
   const [about, setAbout] = useState();
   const { id } = useParams();
+  const params = useParams()
 
   useEffect(() => {
     axios
       .get(`https://gw.texnomart.uz/api/web/v1/product/detail?id= ${id}`)
       .then((res) => {
         setAbout(res.data.data.data);
-        console.log(res.data.data.data);
       });
   }, []);
 
@@ -33,49 +34,47 @@ function Aboute() {
           <div>
             <h2 className="font-semibold mb-4">Mahsulot haqida qisqacha</h2>
 
-           <div className=" flex flex-col gap-4">
-           <div className="flex gap-1">
-              <h2 className="text-[grey]">Brend</h2>
-              <h2 className="text-[grey]">
-                ..........................................
-              </h2>
-              <h2>Janome</h2>
-            </div>
+            <div className=" flex flex-col gap-4">
+              <div className="flex gap-1">
+                <h2 className="text-[grey]">Brend</h2>
+                <h2 className="text-[grey]">
+                  ..........................................
+                </h2>
+                <h2>Janome</h2>
+              </div>
 
-            <div className="flex gap-1">
-              <h2 className="text-[grey]">Ish paytida shovqin darajasi</h2>
-              <h2 className="text-[grey]">
-                ..........................................
-              </h2>
-              <h2>Janome</h2>
-            </div>
+              <div className="flex gap-1">
+                <h2 className="text-[grey]">Ish paytida shovqin darajasi</h2>
+                <h2 className="text-[grey]">
+                  ..........................................
+                </h2>
+                <h2>Janome</h2>
+              </div>
 
-            <div className="flex gap-1">
-              <h2 className="text-[grey]">Chang yig'ish hajmi</h2>
-              <h2 className="text-[grey]">
-                ..........................................
-              </h2>
-              <h2>Janome</h2>
-            </div>
+              <div className="flex gap-1">
+                <h2 className="text-[grey]">Chang yig'ish hajmi</h2>
+                <h2 className="text-[grey]">
+                  ..........................................
+                </h2>
+                <h2>Janome</h2>
+              </div>
 
-            <div className="flex gap-1">
-              <h2 className="text-[grey]">So‘rish quvvati</h2>
-              <h2 className="text-[grey]">
-                ..........................................
-              </h2>
-              <h2>Janome</h2>
-            </div>
+              <div className="flex gap-1">
+                <h2 className="text-[grey]">So‘rish quvvati</h2>
+                <h2 className="text-[grey]">
+                  ..........................................
+                </h2>
+                <h2>Janome</h2>
+              </div>
 
-
-            <div className="flex gap-1">
-              <h2 className="text-[grey]">Tozalash</h2>
-              <h2 className="text-[grey]">
-                ..........................................
-              </h2>
-              <h2>Janome</h2>
+              <div className="flex gap-1">
+                <h2 className="text-[grey]">Tozalash</h2>
+                <h2 className="text-[grey]">
+                  ..........................................
+                </h2>
+                <h2>Janome</h2>
+              </div>
             </div>
-            
-           </div>
           </div>
 
           <div className="border-1 border-[lightgrey] rounded-lg w-[400px] h-[200px] p-3">
@@ -89,6 +88,10 @@ function Aboute() {
           </div>
         </div>
       </div>
+
+
+      <Cardlar productId={params.id} />
+
     </div>
   );
 }

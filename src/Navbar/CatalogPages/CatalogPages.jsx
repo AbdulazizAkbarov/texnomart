@@ -5,12 +5,13 @@ import ShoppingCart02Icon from "../icons/shopping-cart-02-stroke-rounded";
 import useSmthStore from "../my-store";
 import Cards from "../../Main/Cards";
 import Product from "../../Main/Product";
+import Cardlar from "../../Main/Cardlar/Cardlar";
 
 function CatalogPages() {
   const { slug } = useParams();
   const [catalog, setCatalog] = useState([]);
   const { counter } = useSmthStore();
-
+  const params = useParams();
 
   useEffect(() => {
     axios
@@ -20,14 +21,12 @@ function CatalogPages() {
 
       .then((res) => {
         setCatalog(res.data.data.products);
-        console.log(res.data.data.products);
       });
   }, [slug]);
 
   if (!catalog) {
     return <div>Loading...</div>;
   }
-
 
   const handleAddToCart = (item) => {
     const topish = counter.find((prod) => prod.id === item.id);
@@ -53,10 +52,11 @@ function CatalogPages() {
     <div className=" mx-auto container px-8">
       <div className="flex flex-wrap justify-center gap-6 mt-8 mb-10">
         {catalog.map((item, index) => {
-          return (
-           <Product key={index} item={item}/>
-          );
+          return <Product key={index} item={item} />;
         })}
+      </div>
+
+      <div>
       </div>
     </div>
   );

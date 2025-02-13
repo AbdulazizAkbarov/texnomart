@@ -6,7 +6,7 @@ import ShoppingCart02Icon from "../Navbar/icons/shopping-cart-02-stroke-rounded"
 import useMyStore from "../Navbar/my-store";
 
 function Product({ item }) {
-  const { counter } = useMyStore();
+  const { counter,count } = useMyStore();
 
   const [like, setLike] = useState({});
 
@@ -16,8 +16,9 @@ function Product({ item }) {
       [id]: !prevLiked[id],
     }));
   };
+  const state =useMyStore()
 
-  const handleAddToCart = (item) => {
+  const savatgaQoshish = (item) => {
     const topish = counter.find((prod) => prod.id === item.id);
 
     if (topish) {
@@ -80,10 +81,10 @@ function Product({ item }) {
         <div
           className="border-2 border-[#FBC100] p-1 rounded cursor-pointer"
           onClick={() => {
-            handleAddToCart(item);
-            useMyStore.setState({
-              counter: nom,
-            });
+            savatgaQoshish(item);
+            // useMyStore.setState({
+            //   counter: nom,
+            // });
           }}
         >
           <ShoppingCart02Icon />
