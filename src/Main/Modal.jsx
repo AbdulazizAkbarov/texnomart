@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import FavouriteIcon from "../Navbar/icons/favourite-stroke-rounded";
 import Delete03Icon from "./delete-03-stroke-rounded";
 import Cancel01Icon from "./cancel-01-stroke-rounded";
-import useSmthStore from "../Navbar/my-store";
+import useMystore from "../Navbar/my-store";
 
 function Modal({ modal, setModal }) {
   const [tolov, setTolov] = useState(false);
-  const { counter } = useSmthStore();
+  const { counter } = useMystore();
 
   const handleDel = (id) => {
     const del = counter.filter((item) => item.id !== id);
-    useSmthStore.setState({ counter: del });
+    useMystore.setState({ counter: del });
   };
 
   const minus = (item) => {
@@ -20,7 +20,7 @@ function Modal({ modal, setModal }) {
           ? { ...item_counter, soni: item_counter.soni - 1 }
           : item_counter
       );
-      useSmthStore.setState({ counter: update });
+      useMystore.setState({ counter: update });
     }
   };
 
@@ -31,12 +31,15 @@ function Modal({ modal, setModal }) {
         ? { ...item_counter, soni: item_counter.soni + 1 }
         : item_counter
     );
-    useSmthStore.setState({ counter: update });
+    useMystore.setState({ counter: update });
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 bottom-0 bg-[#d7d7d7] z-10">
-      <div className="w-[1300px] h-[440px] bg-white mx-auto mt-28 rounded-2xl ">
+    <div className="fixed top-0 left-0 right-0 bottom-0 bg-[black]/60 z-10" onClick={()=>{
+      setModal(false)
+    }}>
+     <div>
+     <div className="w-[1300px] h-[440px] bg-white mx-auto mt-28 rounded-2xl">
         <div className="flex items-center justify-between pr-12">
           <h2 className="font-semibold text-2xl p-6">Korzina</h2>
           <div onClick={() => setModal(false)}>
@@ -137,6 +140,7 @@ function Modal({ modal, setModal }) {
           </div>
         </div>
       </div>
+     </div>
     </div>
   );
 }

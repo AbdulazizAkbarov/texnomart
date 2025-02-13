@@ -4,6 +4,6 @@ const smthStore = () => ({
   counter: [{ soni: 1 }],
   count: [],
 });
-const useSmthStore = create(smthStore);
+const useMyStore = create(smthStore);
 
-export default useSmthStore;
+export default useMyStore;
