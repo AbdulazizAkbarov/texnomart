@@ -19,10 +19,9 @@ function Cardlar({ productId }) {
       });
   }, []);
 
-  if (malumot.length===0) {
+  if (malumot.length === 0) {
     return <div>Loading...</div>;
   }
-
 
   return (
     <div className="mt-9">
@@ -30,10 +29,10 @@ function Cardlar({ productId }) {
       <div className="flex gap-2 justify-between mb-4">
         {malumot.map((item, index) => (
           <Button
-          onClick={()=>{
-            setActive(index)
-          }}
-          type={active === index ? "primary" :"default"}
+            onClick={() => {
+              setActive(index);
+            }}
+            type={active === index ? "primary" : "default"}
             className="border px-5 py-1 rounded cursor-pointer"
             key={item.id}
           >
@@ -42,10 +41,11 @@ function Cardlar({ productId }) {
         ))}
       </div>
 
-
-      <div className="grid grid-cols-5">{malumot[active].products.map((item,index)=>{
-        return <Product key={index} item={item}/>
-      })}</div>
+      <div className="grid grid-cols-5">
+        {malumot[active].products.map((item, index) => {
+          return <Product key={index} item={item} />;
+        })}
+      </div>
     </div>
   );
 }

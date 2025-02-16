@@ -1,28 +1,31 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import ShoppingCart02Icon from "../icons/shopping-cart-02-stroke-rounded";
 import useSmthStore from "../my-store";
-import Cards from "../../Main/Cards";
 import Product from "../../Main/Product";
-import Cardlar from "../../Main/Cardlar/Cardlar";
+import { Pagination } from "antd";
+import { Button } from "antd";
+import Menu05Icon from "../../Main/menu-05-stroke-rounded (1)";
+import Menu11Icon from "../../Main/menu2";
 
 function CatalogPages() {
   const { slug } = useParams();
-  const [catalog, setCatalog] = useState([]);
+  const [catalog, setCatalog] = useState();
   const { counter } = useSmthStore();
   const params = useParams();
+  const [active, setActive] = useState(1);
+  const [menu, setMenu] = useState(false);
 
   useEffect(() => {
     axios
       .get(
-        `https://gw.texnomart.uz/api/common/v1/search/filters?category_all=${slug}&sort=-order_count&page=1`
+        `https://gw.texnomart.uz/api/common/v1/search/filters?category_all=${slug}&sort=-order_count&page=${active}`
       )
 
       .then((res) => {
-        setCatalog(res.data.data.products);
+        setCatalog(res.data.data);
       });
-  }, [slug]);
+  }, [slug, active]);
 
   if (!catalog) {
     return <div>Loading...</div>;
@@ -50,13 +53,45 @@ function CatalogPages() {
   };
   return (
     <div className=" mx-auto container px-8">
+      <div className="flex justify-evenly mt-5">
+        <h2 className="cursor-pointer">Narx boyicha</h2>
+        <h2 className="cursor-pointer">Reyting boyicha</h2>
+        <h2 className="cursor-pointer">Yangi kelganlar</h2>
+        <div className="flex gap-2">
+          <h2>Ommabopligi bo'yicha</h2>
+          <button
+            onClick={() => {
+              setMenu(menu === true ? false :true)
+            }}
+          >
+            {menu === false ? <Menu05Icon /> : <Menu11Icon />}
+          </button>
+        </div>
+      </div>
       <div className="flex flex-wrap justify-center gap-6 mt-8 mb-10">
-        {catalog.map((item, index) => {
+        {catalog.products.map((item, index) => {
           return <Product key={index} item={item} />;
         })}
       </div>
 
-      <div>
+      <div className="flex justify-center gap-1 mb-11 mt-6">
+        {Array(catalog.pagination.total_page)
+          .fill(1)
+          .map((_, i) => {
+            const page = i + 1;
+            return (
+              <Button
+                type={active === page ? "primary" : "default"}
+                onClick={() => {
+                  setActive(page);
+                }}
+                key={i}
+                className="border px-4 py-1"
+              >
+                {i + 1}
+              </Button>
+            );
+          })}
       </div>
     </div>
   );

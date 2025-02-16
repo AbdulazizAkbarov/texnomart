@@ -71,7 +71,7 @@ function Product({ item }) {
 
       <h2>{item.name.slice(0, 20)}</h2>
 
-      <h2 className="bg-[lightgrey] px-2 inline-block rounded text-md my-4">
+      <h2 className="bg-[#ECECEC] px-2 inline-block rounded text-md my-4">
         {item.axiom_monthly_price}
       </h2>
 

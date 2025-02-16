@@ -4,3 +4,10 @@
     overflow: auto;
     height: 200px;
 }
+
+.scrolll{
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 200px;
+    width: 1200px;
+}

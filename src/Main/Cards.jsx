@@ -6,6 +6,7 @@ import rasm2 from "../assets/yurak_qizil.svg";
 import useSmthStore from "../Navbar/my-store";
 import { Link, useParams } from "react-router";
 import Product from "./Product";
+import { Pagination } from "antd";
 
 function Cards() {
   const [card, setCard] = useState([]);
@@ -35,6 +36,8 @@ function Cards() {
           );
         })}
       </div>
+
+
     </div>
   );
 }

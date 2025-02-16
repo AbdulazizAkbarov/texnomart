@@ -14,7 +14,7 @@ function Aboute() {
       .then((res) => {
         setAbout(res.data.data.data);
       });
-  }, []);
+  }, [about]);
 
   if (!about) {
     return <div>Yuklanmoqda...</div>;
@@ -90,8 +90,10 @@ function Aboute() {
       </div>
 
 
-      <Cardlar productId={params.id} />
+<div>
+<Cardlar productId={params.id} />
 
+</div>
     </div>
   );
 }
