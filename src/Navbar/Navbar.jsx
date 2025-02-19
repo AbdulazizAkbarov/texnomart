@@ -10,6 +10,7 @@ import { Link } from "react-router";
 import { useState } from "react";
 import Cancel01Icon from "../Main/cancel-01-stroke-rounded";
 import useSmthStore from "./my-store";
+import Login from "./Login";
 
 function Navbar() {
   const [modal, setModal] = useState(false);
@@ -49,12 +50,10 @@ function Navbar() {
           />
         </div>
 
-        <div className="flex gap-8 pl-8">
-          <div className="flex flex-col items-center">
-            <UserIcon />
-            Kirish
-          </div>
-
+        <div className="flex gap-5 pl-8">
+          <Login/>
+     
+          
           <div
             className="flex flex-col items-center"
             onClick={() => {

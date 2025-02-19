@@ -29,12 +29,13 @@ function Cardlar({ productId }) {
       <div className="flex gap-2 justify-between mb-4">
         {malumot.map((item, index) => (
           <Button
+          key={item.id}
+          
             onClick={() => {
               setActive(index);
             }}
             type={active === index ? "primary" : "default"}
             className="border px-5 py-1 rounded cursor-pointer"
-            key={item.id}
           >
             {item.name}
           </Button>
