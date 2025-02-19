@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import Cardlar from "./Main/Cardlar/Cardlar"
+import Cardlar from "./Main/Cardlar/Cardlar";
 
 function Aboute() {
   const [about, setAbout] = useState();
   const { id } = useParams();
-  const params = useParams()
+  const params = useParams();
 
   useEffect(() => {
     axios
@@ -30,11 +30,13 @@ function Aboute() {
           <div>
             <img className="w-[300px]" src={about.large_images[0]} alt="" />
           </div>
-
+          
           <div>
+
             <h2 className="font-semibold mb-4">Mahsulot haqida qisqacha</h2>
 
             <div className=" flex flex-col gap-4">
+
               <div className="flex gap-1">
                 <h2 className="text-[grey]">Brend</h2>
                 <h2 className="text-[grey]">
@@ -89,11 +91,9 @@ function Aboute() {
         </div>
       </div>
 
-
-<div>
-<Cardlar productId={params.id} />
-
-</div>
+      <div>
+        <Cardlar ar productId={params.id} />
+      </div>
     </div>
   );
 }

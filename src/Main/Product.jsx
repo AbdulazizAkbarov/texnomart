@@ -6,7 +6,7 @@ import ShoppingCart02Icon from "../Navbar/icons/shopping-cart-02-stroke-rounded"
 import useMyStore from "../Navbar/my-store";
 
 function Product({ item }) {
-  const { counter,count } = useMyStore();
+  const { counter, count } = useMyStore();
 
   const [like, setLike] = useState({});
 
@@ -16,7 +16,7 @@ function Product({ item }) {
       [id]: !prevLiked[id],
     }));
   };
-  const state =useMyStore()
+  const state = useMyStore();
 
   const savatgaQoshish = (item) => {
     const topish = counter.find((prod) => prod.id === item.id);
@@ -76,7 +76,7 @@ function Product({ item }) {
       </h2>
 
       <div className="flex items-center justify-between">
-        <h2>{item.sale_price} so'm</h2>
+        <h2>{item.sale_price.toLocaleString("ru")} so'm</h2>
 
         <div
           className="border-2 border-[#FBC100] p-1 rounded cursor-pointer"

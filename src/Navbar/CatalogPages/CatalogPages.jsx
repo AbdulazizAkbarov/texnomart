@@ -3,29 +3,37 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import useSmthStore from "../my-store";
 import Product from "../../Main/Product";
-import { Pagination } from "antd";
 import { Button } from "antd";
-import Menu05Icon from "../../Main/menu-05-stroke-rounded (1)";
-import Menu11Icon from "../../Main/menu2";
+import Sidebar from "../../Main/Sidebar";
+import MenuSquareIcon from "../../Main/menu4";
+import Menu09Icon from "../../Main/menu2.2";
 
-function CatalogPages() {
+import Sort from "../../Main/Sort/Sort";
+import useMyStore from "../my-store";
+
+function CatalogPages({ filter }) {
   const { slug } = useParams();
   const [catalog, setCatalog] = useState();
   const { counter } = useSmthStore();
   const params = useParams();
   const [active, setActive] = useState(1);
-  const [menu, setMenu] = useState(false);
+
+  const state = useMyStore();
+  const { tartibi } = state;
 
   useEffect(() => {
     axios
       .get(
-        `https://gw.texnomart.uz/api/common/v1/search/filters?category_all=${slug}&sort=-order_count&page=${active}`
+        `https://gw.texnomart.uz/api/common/v1/search/filters?category_all=${slug}&sort=${
+          tartibi ? "-" : ""
+        }${state.currentSort}&page=${active}`
       )
 
       .then((res) => {
         setCatalog(res.data.data);
+        console.log(res.data.data);
       });
-  }, [slug, active]);
+  }, [slug, active, state.currentSort, tartibi]);
 
   if (!catalog) {
     return <div>Loading...</div>;
@@ -51,27 +59,63 @@ function CatalogPages() {
       });
     }
   };
+
+  function onChange(name) {
+    return useMyStore.setState({
+      currentSort: name,
+    });
+  }
   return (
     <div className=" mx-auto container px-8">
-      <div className="flex justify-evenly mt-5">
-        <h2 className="cursor-pointer">Narx boyicha</h2>
-        <h2 className="cursor-pointer">Reyting boyicha</h2>
-        <h2 className="cursor-pointer">Yangi kelganlar</h2>
-        <div className="flex gap-2">
-          <h2>Ommabopligi bo'yicha</h2>
-          <button
-            onClick={() => {
-              setMenu(menu === true ? false :true)
-            }}
-          >
-            {menu === false ? <Menu05Icon /> : <Menu11Icon />}
-          </button>
+      <div className="flex   justify-between ">
+        <div className="w-[350px]">
+          <Sidebar catalog={catalog} />{" "}
         </div>
-      </div>
-      <div className="flex flex-wrap justify-center gap-6 mt-8 mb-10">
-        {catalog.products.map((item, index) => {
-          return <Product key={index} item={item} />;
-        })}
+
+        <div className="mt-5">
+          <div className="flex justify-between items-center">
+            <div className="flex justify-evenly gap-10 mt-5">
+              <Sort
+                currentSort={state.currentSort}
+                onChangeSort={onChange}
+                name={"Price"}
+                title={"Narxi Boyicha"}
+              />
+              <Sort
+                currentSort={state.currentSort}
+                onChangeSort={onChange}
+                name={"rating"}
+                title={"Reyting Boyicha"}
+              />
+              <Sort
+                currentSort={state.currentSort}
+                onChangeSort={onChange}
+                name={"new"}
+                title={"Yangi kelgani Boyicha"}
+              />
+              <Sort
+                currentSort={state.currentSort}
+                onChangeSort={onChange}
+                name={"order_count"}
+                title={"OmmaBopligi Boyicha"}
+              />
+            </div>
+
+            <div className="flex gap-5">
+              <div>
+                <MenuSquareIcon />
+              </div>
+              <div>
+                <Menu09Icon />
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-wrap w-[1050px] gap-6 mt-8 mb-10">
+            {catalog.products.map((item, index) => {
+              return <Product key={index} item={item} />;
+            })}
+          </div>
+        </div>
       </div>
 
       <div className="flex justify-center gap-1 mb-11 mt-6">
